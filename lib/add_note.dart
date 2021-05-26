@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/note_class.dart';
 
 class AddNote extends StatefulWidget {
-  const AddNote({Key key}) : super(key: key);
+  const AddNote({Key key, this.note, this.isNew = false}) : super(key: key);
 
+  final Note note;
+  final bool isNew;
   @override
   _AddNoteState createState() => _AddNoteState();
 }
@@ -10,6 +13,19 @@ class AddNote extends StatefulWidget {
 class _AddNoteState extends State<AddNote> {
   String _title;
   String _content;
+  TextEditingController _titleController;
+  TextEditingController _noteContentController;
+  @override
+  void initState() {
+    super.initState();
+    if(!widget.isNew) {
+      _titleController = TextEditingController(
+          text: widget.note.title);
+      _noteContentController = TextEditingController(
+          text: widget.note.noteContent);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,6 +35,7 @@ class _AddNoteState extends State<AddNote> {
           children: [
             // for title
             TextField(
+              controller: _titleController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Title',
@@ -27,8 +44,6 @@ class _AddNoteState extends State<AddNote> {
                   onPressed: () {
                     // do something to save the note
                     // add null checks too
-                    // todo: remove the following print statement
-                    print(_content);
                   },
                 )
               ),
@@ -38,6 +53,7 @@ class _AddNoteState extends State<AddNote> {
             ),
             // for note content
             TextField(
+              controller: _noteContentController,
               decoration: InputDecoration(
                 hintText: 'Enter your content',
                 border: InputBorder.none,
