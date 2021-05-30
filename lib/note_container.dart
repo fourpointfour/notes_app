@@ -17,15 +17,14 @@ class _NoteContainerState extends State<NoteContainer> {
     return Container(
       child: ListTile(
         onTap: () {
-
+          print('Note Box tapped!');
         },
         title: Text(widget.title),
-        subtitle: Flexible(
-          child: Container(
-            child: Text(
-              widget.noteContent,
-              overflow: TextOverflow.ellipsis,
-            ),
+        subtitle: Container(
+          child: Text(
+            widget.noteContent,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),
