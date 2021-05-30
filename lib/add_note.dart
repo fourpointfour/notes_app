@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:notes_app/note_class.dart';
 
 class AddNote extends StatefulWidget {
-  const AddNote({Key key, this.note, this.isNew = false}) : super(key: key);
+  const AddNote({Key key}) : super(key: key);
 
-  final Note note;
-  final bool isNew;
   @override
   _AddNoteState createState() => _AddNoteState();
 }
@@ -15,27 +14,39 @@ class _AddNoteState extends State<AddNote> {
   String _content;
   TextEditingController _titleController;
   TextEditingController _noteContentController;
+
   @override
   void initState() {
     super.initState();
-    if(!widget.isNew) {
-      _titleController = TextEditingController(
-          text: widget.note.title);
-      _noteContentController = TextEditingController(
-          text: widget.note.noteContent);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.check_circle),
+          onPressed: () {
+            if(_title == null || _content == null || _title.isEmpty || _content.isEmpty) {
+              print('Note empty...');
+              return;
+            }
+            final Note note = Note(title: _title, noteContent: _content, timeModified: DateTime.now());
+            try {
+              var box = Hive.box<Note>('noteBox');
+              box.add(note);
+              print('Data written successfully');
+              Navigator.pop(context);
+            } catch (err) {
+              print(err.toString());
+            }
+          },
+        ),
         body: ListView(
 
           children: [
             // for title
             TextField(
-              controller: _titleController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Title',
@@ -53,7 +64,6 @@ class _AddNoteState extends State<AddNote> {
             ),
             // for note content
             TextField(
-              controller: _noteContentController,
               decoration: InputDecoration(
                 hintText: 'Enter your content',
                 border: InputBorder.none,
