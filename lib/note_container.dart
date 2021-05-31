@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NoteContainer extends StatefulWidget {
-  const NoteContainer({Key key, this.title, this.noteContent, this.timeModified}) : super(key: key);
+  const NoteContainer({Key key, this.title, this.noteContent, this.timeModified, this.index}) : super(key: key);
 
   final String title;
   final String noteContent;
   final DateTime timeModified;
+  final index;
 
   @override
   _NoteContainerState createState() => _NoteContainerState();
@@ -16,8 +17,12 @@ class _NoteContainerState extends State<NoteContainer> {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
-        onTap: () {
-          print('Note Box tapped!');
+        onTap: () async {
+          Navigator.pushNamed(context, '/openNote', arguments: {
+            '_title': widget.title,
+            '_content': widget.noteContent,
+            'index': widget.index,
+          });
         },
         title: Text(widget.title),
         subtitle: Container(

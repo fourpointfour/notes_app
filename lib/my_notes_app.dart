@@ -45,6 +45,7 @@ class _MyNotesAppState extends State<MyNotesApp> {
                   title: _boxData.title,
                   noteContent: _boxData.noteContent,
                   timeModified: _boxData.timeModified,
+                  index: index,
                 );
               },
             );
