@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:notes_app/note_class.dart';
 
 class NoteContainer extends StatefulWidget {
   const NoteContainer({Key key, this.title, this.noteContent, this.timeModified, this.index}) : super(key: key);
@@ -24,6 +26,12 @@ class _NoteContainerState extends State<NoteContainer> {
             'index': widget.index,
           });
         },
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            return showDialogBox(context, widget.index);
+          },
+        ),
         title: Text(widget.title),
         subtitle: Container(
           child: Text(
@@ -35,4 +43,31 @@ class _NoteContainerState extends State<NoteContainer> {
       ),
     );
   }
+}
+
+Future<dynamic> showDialogBox(BuildContext context, int index)
+{
+  final box = Hive.box<Note>('noteBox');
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Confirm?"),
+      content: Text("Are you sure you want to delete this?"),
+      actions: [
+        TextButton(
+          child: Text("Delete"),
+          onPressed: () {
+            box.deleteAt(index);
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: Text("Cancel"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    ),
+  );
 }
