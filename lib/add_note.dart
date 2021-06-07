@@ -9,6 +9,27 @@ class AddNote extends StatefulWidget {
   _AddNoteState createState() => _AddNoteState();
 }
 
+void saveData(String _title, String _content) {
+  try {
+    if(_title == null && _content == null)
+      return;
+
+    if(_title == null)
+      _title = '';
+    if(_content == null)
+      _content = '';
+    final dataBox = Hive.box<Note>('noteBox');
+    final Note note = Note(
+      title: _title,
+      noteContent: _content,
+      timeModified: DateTime.now(),
+    );
+    dataBox.add(note);
+  } catch (err) {
+    print(err.toString());
+  }
+}
+
 class _AddNoteState extends State<AddNote> {
   String _title;
   String _content;
@@ -42,37 +63,46 @@ class _AddNoteState extends State<AddNote> {
             }
           },
         ),
-        body: ListView(
-          children: [
-            // for title
-            TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Title',
-                suffix: IconButton(
-                  icon: Icon(Icons.check),
-                  onPressed: () {
-                    // do something to save the note
-                    // add null checks too
-                  },
-                )
+        body: WillPopScope(
+          onWillPop: () async {
+            saveData(_title, _content);
+            Navigator.pop(context);
+            return false;
+          },
+          child: ListView(
+            children: [
+              // for title
+              TextField(
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Title',
+                  suffix: IconButton(
+                    icon: Icon(Icons.check),
+                    onPressed: () {
+                      // do something to save the note
+                      // add null checks too
+                    },
+                  )
+                ),
+                onChanged: (value) {
+                  _title = value;
+                },
               ),
-              onChanged: (value) {
-                _title = value;
-              },
-            ),
-            // for note content
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter your content',
-                border: InputBorder.none,
+              // for note content
+              TextField(
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                  hintText: 'Enter your content',
+                  border: InputBorder.none,
+                ),
+                maxLines: null,
+                onChanged: (value) {
+                  _content = value;
+                },
               ),
-              maxLines: null,
-              onChanged: (value) {
-                _content = value;
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

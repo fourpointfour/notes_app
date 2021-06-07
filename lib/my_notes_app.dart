@@ -38,11 +38,13 @@ class _MyNotesAppState extends State<MyNotesApp> {
           valueListenable: Hive.box<Note>('noteBox').listenable(),
           builder: (context, Box<Note> _box, _) {
             return GridView.builder(
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisSpacing: 8,
+                childAspectRatio: 3 / 2,
                 mainAxisSpacing: 8,
-                maxCrossAxisExtent: 200,
+                crossAxisCount: 2,
               ),
+              // semanticChildCount: 2,
               itemCount: _box.values.length,
               itemBuilder: (context, index) {
                 final _boxData = _box.getAt(index);

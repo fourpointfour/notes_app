@@ -44,6 +44,7 @@ class _OpenNoteState extends State<OpenNote> {
             children: [
               // for title
               TextField(
+                textCapitalization: TextCapitalization.sentences,
                 controller: titleController,
                 decoration: InputDecoration(
                     border: InputBorder.none,
@@ -62,6 +63,7 @@ class _OpenNoteState extends State<OpenNote> {
               ),
               // for note content
               TextField(
+                textCapitalization: TextCapitalization.sentences,
                 controller: contentController,
                 decoration: InputDecoration(
                   hintText: 'Enter your content',
