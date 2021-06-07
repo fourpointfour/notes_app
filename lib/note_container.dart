@@ -19,6 +19,7 @@ class _NoteContainerState extends State<NoteContainer> {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
+        tileColor: Colors.blue[300],
         onTap: () async {
           Navigator.pushNamed(context, '/openNote', arguments: {
             '_title': widget.title,

@@ -37,7 +37,12 @@ class _MyNotesAppState extends State<MyNotesApp> {
         body: ValueListenableBuilder(
           valueListenable: Hive.box<Note>('noteBox').listenable(),
           builder: (context, Box<Note> _box, _) {
-            return ListView.builder(
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                maxCrossAxisExtent: 200,
+              ),
               itemCount: _box.values.length,
               itemBuilder: (context, index) {
                 final _boxData = _box.getAt(index);
@@ -49,6 +54,18 @@ class _MyNotesAppState extends State<MyNotesApp> {
                 );
               },
             );
+            //   ListView.builder(
+            //   itemCount: _box.values.length,
+            //   itemBuilder: (context, index) {
+            //     final _boxData = _box.getAt(index);
+            //     return NoteContainer(
+            //       title: _boxData.title,
+            //       noteContent: _boxData.noteContent,
+            //       timeModified: _boxData.timeModified,
+            //       index: index,
+            //     );
+            //   },
+            // );
           },
         ),
       ),
