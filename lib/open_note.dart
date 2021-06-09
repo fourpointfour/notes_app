@@ -41,6 +41,7 @@ class _OpenNoteState extends State<OpenNote> {
             return false;
           },
           child: ListView(
+            padding: EdgeInsets.fromLTRB(10, 12, 10, 0),
             children: [
               // for title
               TextField(
@@ -49,6 +50,9 @@ class _OpenNoteState extends State<OpenNote> {
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Title',
+                    hintStyle: TextStyle(
+                      fontSize: 27,
+                    ),
                     suffix: IconButton(
                       icon: Icon(Icons.check),
                       onPressed: () {
@@ -56,6 +60,11 @@ class _OpenNoteState extends State<OpenNote> {
                         Navigator.pop(context);
                       },
                     )
+                ),
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff4d5284),
                 ),
                 onChanged: (value) {
                   _title = value;
@@ -70,6 +79,10 @@ class _OpenNoteState extends State<OpenNote> {
                   border: InputBorder.none,
                 ),
                 maxLines: null,
+                style: TextStyle(
+                  fontSize: 18.5,
+                  color: Color(0xff4d5284),
+                ),
                 onChanged: (value) {
                   _content = value;
                 },

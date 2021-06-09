@@ -17,6 +17,13 @@ Future<void> main() async
   await Hive.openBox<Note>('noteBox');
 
   runApp(MaterialApp(
+    theme: ThemeData(
+      fontFamily: 'Merriweather',
+      scaffoldBackgroundColor: Colors.white,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Color(0xff655fb1),
+      ),
+    ),
     routes: {
       '/': (context) => MyNotesApp(),
       '/addNote': (context) => AddNote(),

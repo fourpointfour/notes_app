@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:notes_app/note_class.dart';
@@ -18,8 +19,11 @@ class _NoteContainerState extends State<NoteContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Color(0xffffe598),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: ListTile(
-        tileColor: Colors.blue[300],
         onTap: () async {
           Navigator.pushNamed(context, '/openNote', arguments: {
             '_title': widget.title,
@@ -27,18 +31,32 @@ class _NoteContainerState extends State<NoteContainer> {
             'index': widget.index,
           });
         },
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            return showDialogBox(context, widget.index);
-          },
+        // todo: do something to delete the note
+        // trailing: IconButton(
+        //   icon: Icon(Icons.delete),
+        //   iconSize: 12,
+        //   onPressed: () {
+        //     return showDialogBox(context, widget.index);
+        //   },
+        // ),
+        contentPadding: EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 3),
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
+            color: Color(0xff4d5284),
+          ),
         ),
-        title: Text(widget.title),
         subtitle: Container(
+          margin: EdgeInsets.only(top: 4),
           child: Text(
             widget.noteContent,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ),
