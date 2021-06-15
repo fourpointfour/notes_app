@@ -43,7 +43,7 @@ class _MyNotesAppState extends State<MyNotesApp> {
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 8,
-                  childAspectRatio: 3 / 1.5,
+                  childAspectRatio: 4 / 3,
                   mainAxisSpacing: 8,
                   crossAxisCount: 2,
                 ),

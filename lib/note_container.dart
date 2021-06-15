@@ -20,6 +20,12 @@ class _NoteContainerState extends State<NoteContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/pattern.png'),
+          colorFilter: ColorFilter.srgbToLinearGamma(),
+          alignment: Alignment(1.1, -2),
+          // fit: BoxFit.fill,
+        ),
         color: Color(0xffffe598),
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
@@ -39,7 +45,7 @@ class _NoteContainerState extends State<NoteContainer> {
         //     return showDialogBox(context, widget.index);
         //   },
         // ),
-        contentPadding: EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 3),
+        contentPadding: EdgeInsets.only(left: 8, right: 6, top: 4, bottom: 3),
         title: Text(
           widget.title,
           style: TextStyle(
