@@ -59,5 +59,7 @@ git clone https://github.com/vaibhav-yb/notes_app.git
 </ul>
 
 <h3 align="center">
-  <img src="http://ForTheBadge.com/images/badges/built-with-love.svg">
+  <img src="http://ForTheBadge.com/images/badges/built-with-love.svg"> <br>
+  <em>for</em> <br>
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white">
 </h3>
